@@ -10,3 +10,5 @@ application/logs/*
 /nbproject/*
 
 application/config/*
+asset/*
+system/*
