@@ -6,6 +6,7 @@ class Product extends MY_Controller {
     parent::__construct();
     $this->load->model( 'Product_model' );
     $this->load->model( 'Clickfunnels_model' );
+    $this->load->model( 'Shopifytheme_model' );
 
     // Define the search values
     $this->_searchConf  = array(
@@ -201,7 +202,7 @@ class Product extends MY_Controller {
           }else{
             echo sprintf("An error occurred deleting the file %s",$fn);
           }
-          
+
           $returnDelete = $this->Clickfunnels_model->delete( $id );
           if( $returnDelete === true ){
               $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
@@ -288,5 +289,129 @@ class Product extends MY_Controller {
       {
           return TRUE;
       }
+  }
+
+  function shopifytheme(){
+      // Check the login
+      $this->is_logged_in();
+
+      if($this->session->userdata('role') == 'admin'){
+          $data['query'] =  $this->Shopifytheme_model->getList();
+          $data['arrStoreList'] =  $this->_arrStoreList;
+
+          $this->load->view('view_header');
+          $this->load->view('view_shopifytheme', $data);
+          $this->load->view('view_footer');
+      }
+  }
+
+  function delShopifytheme(){
+      if($this->session->userdata('role') == 'admin'){
+          $id = $this->input->get_post('del_id');
+
+          $returnDelete = $this->Shopifytheme_model->delete( $id );
+          if( $returnDelete === true ){
+              $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
+          }
+          else{
+              $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
+          }
+      }
+      else{
+          $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
+      }
+      redirect('product/shopifytheme');
+      exit;
+  }
+
+  function createShopifytheme(){
+     if($this->session->userdata('role') == 'admin'){
+      $this->form_validation->set_rules('email', 'Email', 'callback_shopifyemail_check');
+      //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
+
+      if ($this->form_validation->run() == FALSE){
+          echo validation_errors('<div class="alert alert-danger">', '</div>');
+          exit;
+      }
+      else{
+            if($this->Shopifytheme_model->createShopifytheme()){
+                echo '<div class="alert alert-success">This Customer added successfully</div>';
+                //redirect('product/clickfunnels');
+                exit;
+            }
+            else{
+                echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
+                exit;
+            }
+          }
+     }
+     else{
+         echo '<div class="alert alert-danger">Invalid Email</div>';
+         exit;
+     }
+  }
+
+  function updateShopifytheme( $key ){
+    if($this->session->userdata('role') == 'admin'){
+      $val = $this->input->post('value');
+
+      $data = array(
+        $key => $val
+      );
+
+      $this->Shopifytheme_model->update( $this->input->post('pk'), $data );
+    }
+  }
+
+  public function shopifyemail_check($str){
+      $query =  $this->db->get_where('shopifytheme', array('email'=>$str));
+
+      if (count($query->result())>0)
+      {
+          $this->form_validation->set_message('email_check', 'The %s already exists');
+          return FALSE;
+      }
+      else
+      {
+          return TRUE;
+      }
+  }
+
+  public function getThemelicense(){
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST");
+    header('Content-Type: application/json');
+
+    //var_dump($_GET[ "mail" ]);exit;
+
+    if( isset( $_GET["email" ] ) ){
+
+      $email = trim(preg_replace('/\s\s+/', ' ', $_GET[ "email" ]));
+      //$license = trim(preg_replace('/\s\s+/', ' ', $_POST[ "license" ]));
+      $query =  $this->db->get_where('shopifytheme', array('email'=>$email));
+
+      //var_dump($query->result()[0]->license);exit;
+
+      if (count($query->result())>0)
+      {
+          $result_code = $query->result()[0]->license;
+          $is_active = $query->result()[0]->is_active;
+
+          if($is_active){
+            echo json_encode(array( '0' => $result_code));
+          }
+          else{
+            echo json_encode(array( '0' => false));
+          }
+      }
+      else
+      {
+          echo json_encode(array( '0' => false));
+      }
+    }
+    else{
+        echo json_encode(array( '0' => false));
+    }
   }
 }

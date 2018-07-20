@@ -1,0 +1,1 @@
+var x=document.getElementsByClassName("elOrderProductOptinProducts");x[1].style.display="none";var sub_input=document.getElementsByClassName("elOrderProductOptinProducts")[1];var sub_product=sub_input.getElementsByTagName("INPUT")[0].value;document.getElementById("bump-offer").value=sub_product;
