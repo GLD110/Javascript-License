@@ -389,9 +389,7 @@ class Product extends MY_Controller {
 
       $email = trim(preg_replace('/\s\s+/', ' ', $_GET[ "email" ]));
       //$license = trim(preg_replace('/\s\s+/', ' ', $_POST[ "license" ]));
-      $query =  $this->db->get_where('shopifytheme', array('email'=>$email));
-
-      //var_dump($query->result()[0]->license);exit;
+      $query =  $this->db->get_where('shopifytheme', array('email'=>$email));      
 
       if (count($query->result())>0)
       {
