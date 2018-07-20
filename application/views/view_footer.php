@@ -5,7 +5,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.3.0
         </div>
-        <strong>Copyright &copy; <a href="http://www.momentor.no/">Momentor </a>.</strong> All rights reserved. Version 1.0. 
+        <strong>Copyright &copy; <a href="http://www.momentor.no/">Momentor </a>.</strong> All rights reserved. Version 1.0.
       </footer>
 
       <!-- Control Sidebar -->

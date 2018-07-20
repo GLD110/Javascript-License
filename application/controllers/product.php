@@ -5,7 +5,7 @@ class Product extends MY_Controller {
   public function __construct() {
     parent::__construct();
     $this->load->model( 'Product_model' );
-    $this->load->model( 'Sku_model' );
+    $this->load->model( 'Clickfunnels_model' );
 
     // Define the search values
     $this->_searchConf  = array(
@@ -176,24 +176,33 @@ class Product extends MY_Controller {
       echo $page . '_' . $count;
   }
 
-  function manageSku(){
+  function clickfunnels(){
       // Check the login
       $this->is_logged_in();
 
       if($this->session->userdata('role') == 'admin'){
-          $data['query'] =  $this->Sku_model->getList();
+          $data['query'] =  $this->Clickfunnels_model->getList();
           $data['arrStoreList'] =  $this->_arrStoreList;
 
           $this->load->view('view_header');
-          $this->load->view('view_sku', $data);
+          $this->load->view('view_clickfunnels', $data);
           $this->load->view('view_footer');
       }
   }
 
-  function delSku(){
+  function delClickfunnels(){
       if($this->session->userdata('role') == 'admin'){
           $id = $this->input->get_post('del_id');
-          $returnDelete = $this->Sku_model->delete( $id );
+          $email = $this->input->get_post('del_email');
+
+          $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+          if(unlink($fn)){
+            echo sprintf("The file %s deleted successfully",$fn);
+          }else{
+            echo sprintf("An error occurred deleting the file %s",$fn);
+          }
+          
+          $returnDelete = $this->Clickfunnels_model->delete( $id );
           if( $returnDelete === true ){
               $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
           }
@@ -204,13 +213,13 @@ class Product extends MY_Controller {
       else{
           $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
       }
-      redirect('product/manageSku');
+      redirect('product/clickfunnels');
       exit;
   }
 
-  function createSku(){
+  function createClickfunnels(){
      if($this->session->userdata('role') == 'admin'){
-      $this->form_validation->set_rules('prefix', 'Prefix', 'callback_prefix_check');
+      $this->form_validation->set_rules('email', 'Email', 'callback_email_check');
       //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
 
       if ($this->form_validation->run() == FALSE){
@@ -218,9 +227,9 @@ class Product extends MY_Controller {
           exit;
       }
       else{
-            if($this->Sku_model->createSku()){
-                echo '<div class="alert alert-success">This sku created successfully</div>';
-                //redirect('product/manageSku');
+            if($this->Clickfunnels_model->createClickfunnels()){
+                echo '<div class="alert alert-success">This Customer added successfully</div>';
+                //redirect('product/clickfunnels');
                 exit;
             }
             else{
@@ -230,21 +239,54 @@ class Product extends MY_Controller {
           }
      }
      else{
-         echo '<div class="alert alert-danger">Invalid sku</div>';
+         echo '<div class="alert alert-danger">Invalid Email</div>';
          exit;
      }
   }
 
-  function updateSku( $key ){
+  function updateClickfunnels( $key ){
     if($this->session->userdata('role') == 'admin'){
       $val = $this->input->post('value');
-      if( $key == 'prefix' )
-      $prefix =  $this->input->post('prefix');
+      $email = $this->input->post('name');
+      $scripts = '';
+      if( $val ){
+        $scripts = '<script src="' . $this->config->item('base_url') . 'uploads/clickfunnels/'  . base64_encode($email) . '.js"></script>';
+        $fn = $this->config->item('app_path') . 'asset/js/clickfunnels.js';
+        $newfn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+
+        if(copy($fn,$newfn))
+          echo 'The file was copied successfully';
+        else
+          echo 'An error occurred during copying the file';
+      }
+      else
+      {
+        $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+        if(unlink($fn)){
+        echo sprintf("The file %s deleted successfully",$fn);
+        }else{
+        echo sprintf("An error occurred deleting the file %s",$fn);
+        }
+      }
       $data = array(
-        $key => $val
+        $key => $val, 'scripts' => $scripts
       );
 
-      $this->Sku_model->update( $prefix, $data );
+      $this->Clickfunnels_model->update( $this->input->post('pk'), $data );
     }
+  }
+
+  public function email_check($str){
+      $query =  $this->db->get_where('clickfunnels', array('email'=>$str));
+
+      if (count($query->result())>0)
+      {
+          $this->form_validation->set_message('email_check', 'The %s already exists');
+          return FALSE;
+      }
+      else
+      {
+          return TRUE;
+      }
   }
 }
