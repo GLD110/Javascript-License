@@ -123,35 +123,35 @@ class Endpoint extends MY_Controller {
     $this->Order_model->updateStatus( $this->_inputInfo->id, array( 'status' => 'cancelled' ) );
   }
 
-  // public function product_create()
-  // {
-  //   header( "HTTP/1.1 200 OK" );
-  //   // Log
-  //   $this->Log_model->add( 'Webhook', 'Product Create', $this->_inputInfo->id, '' );
-  //
-  //   $this->load->model( 'Process_model' );
-  //   $this->Process_model->product_create( $this->_inputInfo, $this->_arrStoreList[ $this->_shop ], 'Product Create' );
-  // }
-  //
-  // public function product_update()
-  // {
-  //   header( "HTTP/1.1 200 OK" );
-  //   $this->load->model( 'Process_model' );
-  //   $this->Process_model->product_create( $this->_inputInfo, $this->_arrStoreList[ $this->_shop ], 'Product Update' );
-  // }
-  //
-  // public function product_delete()
-  // {
-  //   header( "HTTP/1.1 200 OK" );
-  //   // Log
-  //   $this->Log_model->add( 'Webhook', 'Product Delete', $this->_inputInfo, '' );
-  //
-  //   // Define the product model
-  //   $this->load->model( 'Product_model' );
-  //   $this->Product_model->rewriteParam( $this->_shop );
-  //
-  //   // Delete Product
-  //   $this->Product_model->deleteProduct( $this->_inputInfo );
-  // }
+  public function product_create()
+  {
+    header( "HTTP/1.1 200 OK" );
+    // Log
+    $this->Log_model->add( 'Webhook', 'Product Create', $this->_inputInfo->id, '' );
+
+    $this->load->model( 'Process_model' );
+    $this->Process_model->product_create( $this->_inputInfo, $this->_arrStoreList[ $this->_shop ], 'Product Create' );
+  }
+
+  public function product_update()
+  {
+    header( "HTTP/1.1 200 OK" );
+    $this->load->model( 'Process_model' );
+    $this->Process_model->product_create( $this->_inputInfo, $this->_arrStoreList[ $this->_shop ], 'Product Update' );
+  }
+
+  public function product_delete()
+  {
+    header( "HTTP/1.1 200 OK" );
+    // Log
+    $this->Log_model->add( 'Webhook', 'Product Delete', $this->_inputInfo, '' );
+
+    // Define the product model
+    $this->load->model( 'Product_model' );
+    $this->Product_model->rewriteParam( $this->_shop );
+
+    // Delete Product
+    $this->Product_model->deleteProduct( $this->_inputInfo );
+  }
 
 }
