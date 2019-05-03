@@ -52,35 +52,35 @@ class Collection extends MY_Controller {
     $this->load->view('view_footer');
   }
 
-  public function sync()
-  {
-    $this->load->model( 'Shopify_model' );
-    if(empty($shop))
-        $shop = $this->_default_store;
-
-    $this->Shopify_model->setStore( $shop, $this->_arrStoreList[$shop]->app_id, $this->_arrStoreList[$shop]->app_secret );
-
-    // Get the lastest day
-    $last_day = $this->Collection_model->getLastUpdateDate();
-
-    $param = 'limit=250';
-    if( $last_day != '' ) $param .= '&updated_at_min=' . urlencode( $last_day );
-    //$action = 'custom_collections.json?' . $param;
-
-    $action = 'smart_collections.json';
-
-    // Retrive Data from Shop
-    $collectionInfo = $this->Shopify_model->accessAPI( $action );
-
-    // Store to database
-    if( isset($collectionInfo->smart_collections) && is_array($collectionInfo->smart_collections) )
-    {
-      foreach( $collectionInfo->smart_collections as $collection )
-      {
-        $this->Collection_model->addCollection( $collection );
-      }
-    }
-
-    echo 'success';
-  }
+  // public function sync()
+  // {
+  //   $this->load->model( 'Shopify_model' );
+  //   if(empty($shop))
+  //       $shop = $this->_default_store;
+  //
+  //   $this->Shopify_model->setStore( $shop, $this->_arrStoreList[$shop]->app_id, $this->_arrStoreList[$shop]->app_secret );
+  //
+  //   // Get the lastest day
+  //   $last_day = $this->Collection_model->getLastUpdateDate();
+  //
+  //   $param = 'limit=250';
+  //   if( $last_day != '' ) $param .= '&updated_at_min=' . urlencode( $last_day );
+  //   //$action = 'custom_collections.json?' . $param;
+  //
+  //   $action = 'smart_collections.json';
+  //
+  //   // Retrive Data from Shop
+  //   $collectionInfo = $this->Shopify_model->accessAPI( $action );
+  //
+  //   // Store to database
+  //   if( isset($collectionInfo->smart_collections) && is_array($collectionInfo->smart_collections) )
+  //   {
+  //     foreach( $collectionInfo->smart_collections as $collection )
+  //     {
+  //       $this->Collection_model->addCollection( $collection );
+  //     }
+  //   }
+  //
+  //   echo 'success';
+  // }
 }
