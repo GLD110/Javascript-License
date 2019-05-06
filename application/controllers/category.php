@@ -7,22 +7,22 @@ class Category extends MY_Controller {
         $this->load->model('Category_model');
     }
 
-    public function index(){
-        $this->is_logged_in();
-
-        $this->manage();
-    }
-
-    function manage(){
-        // Check the login
-        $this->is_logged_in();
-
-        $data['query'] =  $this->Category_model->getList( '', 'sort_order' );
-
-        $this->load->view('view_header');
-        $this->load->view('view_category', $data);
-        $this->load->view('view_footer');
-    }
+    // public function index(){
+    //     $this->is_logged_in();
+    //
+    //     $this->manage();
+    // }
+    //
+    // function manage(){
+    //     // Check the login
+    //     $this->is_logged_in();
+    //
+    //     $data['query'] =  $this->Category_model->getList( '', 'sort_order' );
+    //
+    //     $this->load->view('view_header');
+    //     $this->load->view('view_category', $data);
+    //     $this->load->view('view_footer');
+    // }
 
     function del(){
         $id = $this->input->get_post('del_id');
