@@ -13,30 +13,30 @@ class Category extends MY_Controller {
         $this->manage();
     }
 
-    // function manage(){
-    //     // Check the login
-    //     $this->is_logged_in();
-    //
-    //     $data['query'] =  $this->Category_model->getList( '', 'sort_order' );
-    //
-    //     $this->load->view('view_header');
-    //     $this->load->view('view_category', $data);
-    //     $this->load->view('view_footer');
-    // }
-    //
-    // function del(){
-    //     $id = $this->input->get_post('del_id');
-    //     $returnDelete = $this->Category_model->delete( $id );
-    //     if( $returnDelete === true ){
-    //         $this->session->set_flashdata('falsh', '<p class="alert alert-success">One Category is deleted successfully</p>');
-    //     }
-    //     else{
-    //         $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! Category unsuccessfully : ' . $returnDelete . '</p>');
-    //     }
-    //
-    //     redirect('category');
-    //     exit;
-    // }
+    function manage(){
+        // Check the login
+        $this->is_logged_in();
+
+        $data['query'] =  $this->Category_model->getList( '', 'sort_order' );
+
+        $this->load->view('view_header');
+        $this->load->view('view_category', $data);
+        $this->load->view('view_footer');
+    }
+
+    function del(){
+        $id = $this->input->get_post('del_id');
+        $returnDelete = $this->Category_model->delete( $id );
+        if( $returnDelete === true ){
+            $this->session->set_flashdata('falsh', '<p class="alert alert-success">One Category is deleted successfully</p>');
+        }
+        else{
+            $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! Category unsuccessfully : ' . $returnDelete . '</p>');
+        }
+
+        redirect('category');
+        exit;
+    }
 
     function add(){
         $this->form_validation->set_rules('code', 'Category Code', 'required');
