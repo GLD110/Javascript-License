@@ -38,25 +38,25 @@ class Category extends MY_Controller {
         exit;
     }
 
-    // function add(){
-    //     $this->form_validation->set_rules('code', 'Category Code', 'required');
-    //     $this->form_validation->set_rules('name', 'Category Name', 'required');
-    //
-    //     if ($this->form_validation->run() == FALSE){
-    //         echo validation_errors('<div class="alert alert-danger">', '</div>');
-    //         exit;
-    //     }
-    //     else{
-    //         if($this->Category_model->add()){
-    //             echo '<div class="alert alert-success">This Category is added successfully</div>';
-    //             exit;
-    //         }
-    //         else{
-    //             echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
-    //             exit;
-    //         }
-    //     }
-    // }
+    function add(){
+        $this->form_validation->set_rules('code', 'Category Code', 'required');
+        $this->form_validation->set_rules('name', 'Category Name', 'required');
+
+        if ($this->form_validation->run() == FALSE){
+            echo validation_errors('<div class="alert alert-danger">', '</div>');
+            exit;
+        }
+        else{
+            if($this->Category_model->add()){
+                echo '<div class="alert alert-success">This Category is added successfully</div>';
+                exit;
+            }
+            else{
+                echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
+                exit;
+            }
+        }
+    }
 
     function update( $type, $pk ){
         $data = array();
