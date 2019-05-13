@@ -91,91 +91,91 @@ class Product extends MY_Controller {
     }
   }
 
-  public function sync( $shop = '', $page = 1 )
-  {
-    $this->load->model( 'Process_model' );
-    $this->load->model( 'Collection_model' );
-
-    // Set the store information
-    $this->Product_model->rewriteParam( $shop );
-
-    $this->load->model( 'Shopify_model' );
-    $this->Shopify_model->setStore( $shop, $this->_arrStoreList[$shop]->app_id, $this->_arrStoreList[$shop]->app_secret );
-
-    // // Get the lastest day of collection
-    // $last_day = $this->Collection_model->getLastUpdateDate();
-    // $last_day = str_replace(' ', 'T', $last_day);
-    //
-    // $param = 'limit=250';
-    // if( $last_day != '' ) $param .= '&updated_at_min=' . $last_day;
-    // //$action = 'custom_collections.json?' . $param;
-    //
-    // $action = 'smart_collections.json';
-    //
-    // // Retrive Data from Shop
-    // $collectionInfo = $this->Shopify_model->accessAPI( $action );
-    //
-    // // Store to database
-    // if( isset($collectionInfo->smart_collections) && is_array($collectionInfo->smart_collections) )
-    // {
-    //   foreach( $collectionInfo->smart_collections as $collection )
-    //   {
-    //     /*$collection_productIDs = $this->Shopify_model->accessAPI( 'products.json?fields=id&collection_id=' . $collection->id );
-    //     $c_pIDs = '';
-    //     foreach($collection_productIDs->products as $c_p)
-    //     {
-    //       $c_pIDs = $c_pIDs . ',' . $c_p->id;
-    //     }
-    //     $collection->product_ids = $c_pIDs;*/
-    //     $this->Collection_model->addCollection( $collection );
-    //   }
-    // }
-
-    // Get the lastest day
-    $last_day = $this->Product_model->getLastUpdateDate();
-
-    // Retrive Data from Shop
-    $count = 0;
-
-    // Make the action with update date or page
-    $action = 'products.json?';
-    if( $last_day != '' && $last_day != $this->config->item('CONST_EMPTY_DATE') && $page == 1 )
-    {
-      $action .= 'limit=250&updated_at_min=' . urlencode( $last_day );
-    }
-    else
-    {
-      $action .= 'limit=20&page=' . $page;
-    }
-
-    // Retrive Data from Shop
-    $productInfo = $this->Shopify_model->accessAPI( $action );
-
-    // Store to database
-    if( isset($productInfo->products) && is_array($productInfo->products) )
-    {
-      foreach( $productInfo->products as $product )
-      {
-        $this->Process_model->product_create( $product, $this->_arrStoreList[$shop] );
-      }
-    }
-
-    // Get the count of product
-    if( $last_day != '' && $last_day != $this->config->item('CONST_EMPTY_DATE') && $page == 1 )
-    {
-      $count = 0;
-    }
-    else
-    {
-      if( isset( $productInfo->products )) $count = count( $productInfo->products );
-      $page ++;
-    }
-
-    if( $count == 0 )
-      echo 'success';
-    else
-      echo $page . '_' . $count;
-  }
+  // public function sync( $shop = '', $page = 1 )
+  // {
+  //   $this->load->model( 'Process_model' );
+  //   $this->load->model( 'Collection_model' );
+  //
+  //   // Set the store information
+  //   $this->Product_model->rewriteParam( $shop );
+  //
+  //   $this->load->model( 'Shopify_model' );
+  //   $this->Shopify_model->setStore( $shop, $this->_arrStoreList[$shop]->app_id, $this->_arrStoreList[$shop]->app_secret );
+  //
+  //   // // Get the lastest day of collection
+  //   // $last_day = $this->Collection_model->getLastUpdateDate();
+  //   // $last_day = str_replace(' ', 'T', $last_day);
+  //   //
+  //   // $param = 'limit=250';
+  //   // if( $last_day != '' ) $param .= '&updated_at_min=' . $last_day;
+  //   // //$action = 'custom_collections.json?' . $param;
+  //   //
+  //   // $action = 'smart_collections.json';
+  //   //
+  //   // // Retrive Data from Shop
+  //   // $collectionInfo = $this->Shopify_model->accessAPI( $action );
+  //   //
+  //   // // Store to database
+  //   // if( isset($collectionInfo->smart_collections) && is_array($collectionInfo->smart_collections) )
+  //   // {
+  //   //   foreach( $collectionInfo->smart_collections as $collection )
+  //   //   {
+  //   //     /*$collection_productIDs = $this->Shopify_model->accessAPI( 'products.json?fields=id&collection_id=' . $collection->id );
+  //   //     $c_pIDs = '';
+  //   //     foreach($collection_productIDs->products as $c_p)
+  //   //     {
+  //   //       $c_pIDs = $c_pIDs . ',' . $c_p->id;
+  //   //     }
+  //   //     $collection->product_ids = $c_pIDs;*/
+  //   //     $this->Collection_model->addCollection( $collection );
+  //   //   }
+  //   // }
+  //
+  //   // Get the lastest day
+  //   $last_day = $this->Product_model->getLastUpdateDate();
+  //
+  //   // Retrive Data from Shop
+  //   $count = 0;
+  //
+  //   // Make the action with update date or page
+  //   $action = 'products.json?';
+  //   if( $last_day != '' && $last_day != $this->config->item('CONST_EMPTY_DATE') && $page == 1 )
+  //   {
+  //     $action .= 'limit=250&updated_at_min=' . urlencode( $last_day );
+  //   }
+  //   else
+  //   {
+  //     $action .= 'limit=20&page=' . $page;
+  //   }
+  //
+  //   // Retrive Data from Shop
+  //   $productInfo = $this->Shopify_model->accessAPI( $action );
+  //
+  //   // Store to database
+  //   if( isset($productInfo->products) && is_array($productInfo->products) )
+  //   {
+  //     foreach( $productInfo->products as $product )
+  //     {
+  //       $this->Process_model->product_create( $product, $this->_arrStoreList[$shop] );
+  //     }
+  //   }
+  //
+  //   // Get the count of product
+  //   if( $last_day != '' && $last_day != $this->config->item('CONST_EMPTY_DATE') && $page == 1 )
+  //   {
+  //     $count = 0;
+  //   }
+  //   else
+  //   {
+  //     if( isset( $productInfo->products )) $count = count( $productInfo->products );
+  //     $page ++;
+  //   }
+  //
+  //   if( $count == 0 )
+  //     echo 'success';
+  //   else
+  //     echo $page . '_' . $count;
+  // }
 
   function clickfunnels(){
       // Check the login
