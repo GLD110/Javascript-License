@@ -177,19 +177,19 @@ class Product extends MY_Controller {
       echo $page . '_' . $count;
   }
 
-  // function clickfunnels(){
-  //     // Check the login
-  //     $this->is_logged_in();
-  //
-  //     if($this->session->userdata('role') == 'admin'){
-  //         $data['query'] =  $this->Clickfunnels_model->getList();
-  //         $data['arrStoreList'] =  $this->_arrStoreList;
-  //
-  //         $this->load->view('view_header');
-  //         $this->load->view('view_clickfunnels', $data);
-  //         $this->load->view('view_footer');
-  //     }
-  // }
+  function clickfunnels(){
+      // Check the login
+      $this->is_logged_in();
+
+      if($this->session->userdata('role') == 'admin'){
+          $data['query'] =  $this->Clickfunnels_model->getList();
+          $data['arrStoreList'] =  $this->_arrStoreList;
+
+          $this->load->view('view_header');
+          $this->load->view('view_clickfunnels', $data);
+          $this->load->view('view_footer');
+      }
+  }
 
   function delClickfunnels(){
       if($this->session->userdata('role') == 'admin'){
