@@ -240,7 +240,7 @@ class Order extends MY_Controller {
     if(isset( $shipping_lines->tax_lines['price'] ))
       $tax_rate = $shipping_lines->tax_lines['rate'];
 
-    /*$xml = '<?xml version="1.0" encoding="UTF-8"?>'
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>'
             . '<cXML version="1.2.005" xml:lang="en-US" payloadID="' . $order_id . '@' . $your_name . '.com" timestamp="' . $created_at . '">'
                . '<Header>'
                   . '<From>'
