@@ -223,22 +223,22 @@ class Order extends MY_Controller {
     if($order->shipping_option == '')
       $shipping_option = 'standard';
 
-    $created_at = $order->created_at;
-    $created_at = str_replace(' ', 'T', $created_at);
-    $billing_address = json_decode( base64_decode( $order->billing_address ));
-    $shipping_address = json_decode( base64_decode( $order->shipping_address ));
-    $shipping_lines = json_decode( base64_decode( $order->shipping_lines ));
-    $shipping_lines = $shipping_lines[0];
-    $currency = 'AUD';//$order->currency;
-    $tax_price = ' ';
-    $tax_title = ' ';
-    $tax_rate = ' ';
-    if(isset( $shipping_lines->tax_lines['price'] ))
-      $tax_price = $shipping_lines->tax_lines['price'];
-    if(isset( $shipping_lines->tax_lines['price'] ))
-      $tax_title = $shipping_lines->tax_lines['title'];
-    if(isset( $shipping_lines->tax_lines['price'] ))
-      $tax_rate = $shipping_lines->tax_lines['rate'];
+    // $created_at = $order->created_at;
+    // $created_at = str_replace(' ', 'T', $created_at);
+    // $billing_address = json_decode( base64_decode( $order->billing_address ));
+    // $shipping_address = json_decode( base64_decode( $order->shipping_address ));
+    // $shipping_lines = json_decode( base64_decode( $order->shipping_lines ));
+    // $shipping_lines = $shipping_lines[0];
+    // $currency = 'AUD';//$order->currency;
+    // $tax_price = ' ';
+    // $tax_title = ' ';
+    // $tax_rate = ' ';
+    // if(isset( $shipping_lines->tax_lines['price'] ))
+    //   $tax_price = $shipping_lines->tax_lines['price'];
+    // if(isset( $shipping_lines->tax_lines['price'] ))
+    //   $tax_title = $shipping_lines->tax_lines['title'];
+    // if(isset( $shipping_lines->tax_lines['price'] ))
+    //   $tax_rate = $shipping_lines->tax_lines['rate'];
 
     $xml = '<?xml version="1.0" encoding="UTF-8"?>'
             . '<cXML version="1.2.005" xml:lang="en-US" payloadID="' . $order_id . '@' . $your_name . '.com" timestamp="' . $created_at . '">'
