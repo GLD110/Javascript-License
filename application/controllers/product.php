@@ -291,19 +291,19 @@ class Product extends MY_Controller {
       }
   }
 
-  function shopifytheme(){
-      // Check the login
-      $this->is_logged_in();
-
-      if($this->session->userdata('role') == 'admin'){
-          $data['query'] =  $this->Shopifytheme_model->getList();
-          $data['arrStoreList'] =  $this->_arrStoreList;
-
-          $this->load->view('view_header');
-          $this->load->view('view_shopifytheme', $data);
-          $this->load->view('view_footer');
-      }
-  }
+  // function shopifytheme(){
+  //     // Check the login
+  //     $this->is_logged_in();
+  //
+  //     if($this->session->userdata('role') == 'admin'){
+  //         $data['query'] =  $this->Shopifytheme_model->getList();
+  //         $data['arrStoreList'] =  $this->_arrStoreList;
+  //
+  //         $this->load->view('view_header');
+  //         $this->load->view('view_shopifytheme', $data);
+  //         $this->load->view('view_footer');
+  //     }
+  // }
 
   function delShopifytheme(){
       if($this->session->userdata('role') == 'admin'){
