@@ -305,24 +305,24 @@ class Product extends MY_Controller {
       }
   }
 
-  function delShopifytheme(){
-      if($this->session->userdata('role') == 'admin'){
-          $id = $this->input->get_post('del_id');
-
-          $returnDelete = $this->Shopifytheme_model->delete( $id );
-          if( $returnDelete === true ){
-              $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
-          }
-          else{
-              $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
-          }
-      }
-      else{
-          $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
-      }
-      redirect('product/shopifytheme');
-      exit;
-  }
+  // function delShopifytheme(){
+  //     if($this->session->userdata('role') == 'admin'){
+  //         $id = $this->input->get_post('del_id');
+  //
+  //         $returnDelete = $this->Shopifytheme_model->delete( $id );
+  //         if( $returnDelete === true ){
+  //             $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
+  //         }
+  //         else{
+  //             $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
+  //         }
+  //     }
+  //     else{
+  //         $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
+  //     }
+  //     redirect('product/shopifytheme');
+  //     exit;
+  // }
 
   function createShopifytheme(){
      if($this->session->userdata('role') == 'admin'){
