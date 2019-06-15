@@ -305,51 +305,51 @@ class Product extends MY_Controller {
       }
   }
 
-  // function delShopifytheme(){
-  //     if($this->session->userdata('role') == 'admin'){
-  //         $id = $this->input->get_post('del_id');
-  //
-  //         $returnDelete = $this->Shopifytheme_model->delete( $id );
-  //         if( $returnDelete === true ){
-  //             $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
-  //         }
-  //         else{
-  //             $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
-  //         }
-  //     }
-  //     else{
-  //         $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
-  //     }
-  //     redirect('product/shopifytheme');
-  //     exit;
-  // }
+  function delShopifytheme(){
+      if($this->session->userdata('role') == 'admin'){
+          $id = $this->input->get_post('del_id');
 
-  function createShopifytheme(){
-     if($this->session->userdata('role') == 'admin'){
-      $this->form_validation->set_rules('email', 'Email', 'callback_shopifyemail_check');
-      //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
-
-      if ($this->form_validation->run() == FALSE){
-          echo validation_errors('<div class="alert alert-danger">', '</div>');
-          exit;
+          $returnDelete = $this->Shopifytheme_model->delete( $id );
+          if( $returnDelete === true ){
+              $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
+          }
+          else{
+              $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
+          }
       }
       else{
-            if($this->Shopifytheme_model->createShopifytheme()){
-                echo '<div class="alert alert-success">This Customer added successfully</div>';
-                //redirect('product/clickfunnels');
-                exit;
-            }
-            else{
-                echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
-                exit;
-            }
-          }
-     }
-     else{
-         echo '<div class="alert alert-danger">Invalid Email</div>';
-         exit;
-     }
+          $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
+      }
+      redirect('product/shopifytheme');
+      exit;
   }
+
+  // function createShopifytheme(){
+  //    if($this->session->userdata('role') == 'admin'){
+  //     $this->form_validation->set_rules('email', 'Email', 'callback_shopifyemail_check');
+  //     //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
+  //
+  //     if ($this->form_validation->run() == FALSE){
+  //         echo validation_errors('<div class="alert alert-danger">', '</div>');
+  //         exit;
+  //     }
+  //     else{
+  //           if($this->Shopifytheme_model->createShopifytheme()){
+  //               echo '<div class="alert alert-success">This Customer added successfully</div>';
+  //               //redirect('product/clickfunnels');
+  //               exit;
+  //           }
+  //           else{
+  //               echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
+  //               exit;
+  //           }
+  //         }
+  //    }
+  //    else{
+  //        echo '<div class="alert alert-danger">Invalid Email</div>';
+  //        exit;
+  //    }
+  // }
 
   function updateShopifytheme( $key ){
     if($this->session->userdata('role') == 'admin'){
