@@ -324,32 +324,32 @@ class Product extends MY_Controller {
       exit;
   }
 
-  // function createShopifytheme(){
-  //    if($this->session->userdata('role') == 'admin'){
-  //     $this->form_validation->set_rules('email', 'Email', 'callback_shopifyemail_check');
-  //     //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
-  //
-  //     if ($this->form_validation->run() == FALSE){
-  //         echo validation_errors('<div class="alert alert-danger">', '</div>');
-  //         exit;
-  //     }
-  //     else{
-  //           if($this->Shopifytheme_model->createShopifytheme()){
-  //               echo '<div class="alert alert-success">This Customer added successfully</div>';
-  //               //redirect('product/clickfunnels');
-  //               exit;
-  //           }
-  //           else{
-  //               echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
-  //               exit;
-  //           }
-  //         }
-  //    }
-  //    else{
-  //        echo '<div class="alert alert-danger">Invalid Email</div>';
-  //        exit;
-  //    }
-  // }
+  function createShopifytheme(){
+     if($this->session->userdata('role') == 'admin'){
+      $this->form_validation->set_rules('email', 'Email', 'callback_shopifyemail_check');
+      //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
+
+      if ($this->form_validation->run() == FALSE){
+          echo validation_errors('<div class="alert alert-danger">', '</div>');
+          exit;
+      }
+      else{
+            if($this->Shopifytheme_model->createShopifytheme()){
+                echo '<div class="alert alert-success">This Customer added successfully</div>';
+                //redirect('product/clickfunnels');
+                exit;
+            }
+            else{
+                echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
+                exit;
+            }
+          }
+     }
+     else{
+         echo '<div class="alert alert-danger">Invalid Email</div>';
+         exit;
+     }
+  }
 
   function updateShopifytheme( $key ){
     if($this->session->userdata('role') == 'admin'){
