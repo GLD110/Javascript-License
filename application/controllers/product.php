@@ -377,39 +377,39 @@ class Product extends MY_Controller {
       }
   }
 
-  // public function getThemelicense(){
-  //
-  //   header("Access-Control-Allow-Origin: *");
-  //   header("Access-Control-Allow-Methods: GET, POST");
-  //   header('Content-Type: application/json');
-  //
-  //   //var_dump($_GET[ "mail" ]);exit;
-  //
-  //   if( isset( $_GET["email" ] ) ){
-  //
-  //     $email = trim(preg_replace('/\s\s+/', ' ', $_GET[ "email" ]));
-  //     //$license = trim(preg_replace('/\s\s+/', ' ', $_POST[ "license" ]));
-  //     $query =  $this->db->get_where('shopifytheme', array('email'=>$email));
-  //
-  //     if (count($query->result())>0)
-  //     {
-  //         $result_code = $query->result()[0]->license;
-  //         $is_active = $query->result()[0]->is_active;
-  //
-  //         if($is_active){
-  //           echo json_encode(array( '0' => $result_code));
-  //         }
-  //         else{
-  //           echo json_encode(array( '0' => false));
-  //         }
-  //     }
-  //     else
-  //     {
-  //         echo json_encode(array( '0' => false));
-  //     }
-  //   }
-  //   else{
-  //       echo json_encode(array( '0' => false));
-  //   }
-  // }
+  public function getThemelicense(){
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST");
+    header('Content-Type: application/json');
+
+    //var_dump($_GET[ "mail" ]);exit;
+
+    if( isset( $_GET["email" ] ) ){
+
+      $email = trim(preg_replace('/\s\s+/', ' ', $_GET[ "email" ]));
+      //$license = trim(preg_replace('/\s\s+/', ' ', $_POST[ "license" ]));
+      $query =  $this->db->get_where('shopifytheme', array('email'=>$email));
+
+      if (count($query->result())>0)
+      {
+          $result_code = $query->result()[0]->license;
+          $is_active = $query->result()[0]->is_active;
+
+          if($is_active){
+            echo json_encode(array( '0' => $result_code));
+          }
+          else{
+            echo json_encode(array( '0' => false));
+          }
+      }
+      else
+      {
+          echo json_encode(array( '0' => false));
+      }
+    }
+    else{
+        echo json_encode(array( '0' => false));
+    }
+  }
 }
