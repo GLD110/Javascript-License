@@ -351,31 +351,31 @@ class Product extends MY_Controller {
      }
   }
 
-  function updateShopifytheme( $key ){
-    if($this->session->userdata('role') == 'admin'){
-      $val = $this->input->post('value');
-
-      $data = array(
-        $key => $val
-      );
-
-      $this->Shopifytheme_model->update( $this->input->post('pk'), $data );
-    }
-  }
-
-  public function shopifyemail_check($str){
-      $query =  $this->db->get_where('shopifytheme', array('email'=>$str));
-
-      if (count($query->result())>0)
-      {
-          $this->form_validation->set_message('email_check', 'The %s already exists');
-          return FALSE;
-      }
-      else
-      {
-          return TRUE;
-      }
-  }
+  // function updateShopifytheme( $key ){
+  //   if($this->session->userdata('role') == 'admin'){
+  //     $val = $this->input->post('value');
+  //
+  //     $data = array(
+  //       $key => $val
+  //     );
+  //
+  //     $this->Shopifytheme_model->update( $this->input->post('pk'), $data );
+  //   }
+  // }
+  //
+  // public function shopifyemail_check($str){
+  //     $query =  $this->db->get_where('shopifytheme', array('email'=>$str));
+  //
+  //     if (count($query->result())>0)
+  //     {
+  //         $this->form_validation->set_message('email_check', 'The %s already exists');
+  //         return FALSE;
+  //     }
+  //     else
+  //     {
+  //         return TRUE;
+  //     }
+  // }
 
   public function getThemelicense(){
 
