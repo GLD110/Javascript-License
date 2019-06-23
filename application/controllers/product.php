@@ -245,51 +245,51 @@ class Product extends MY_Controller {
      }
   }
 
-  // function updateClickfunnels( $key ){
-  //   if($this->session->userdata('role') == 'admin'){
-  //     $val = $this->input->post('value');
-  //     $email = $this->input->post('name');
-  //     $scripts = '';
-  //     if( $val ){
-  //       $scripts = '<script src="' . $this->config->item('base_url') . 'uploads/clickfunnels/'  . base64_encode($email) . '.js"></script>';
-  //       $fn = $this->config->item('app_path') . 'asset/js/clickfunnels.js';
-  //       $newfn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
-  //
-  //       if(copy($fn,$newfn))
-  //         echo 'The file was copied successfully';
-  //       else
-  //         echo 'An error occurred during copying the file';
-  //     }
-  //     else
-  //     {
-  //       $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
-  //       if(unlink($fn)){
-  //       echo sprintf("The file %s deleted successfully",$fn);
-  //       }else{
-  //       echo sprintf("An error occurred deleting the file %s",$fn);
-  //       }
-  //     }
-  //     $data = array(
-  //       $key => $val, 'scripts' => $scripts
-  //     );
-  //
-  //     $this->Clickfunnels_model->update( $this->input->post('pk'), $data );
-  //   }
-  // }
-  //
-  // public function email_check($str){
-  //     $query =  $this->db->get_where('clickfunnels', array('email'=>$str));
-  //
-  //     if (count($query->result())>0)
-  //     {
-  //         $this->form_validation->set_message('email_check', 'The %s already exists');
-  //         return FALSE;
-  //     }
-  //     else
-  //     {
-  //         return TRUE;
-  //     }
-  // }
+  function updateClickfunnels( $key ){
+    if($this->session->userdata('role') == 'admin'){
+      $val = $this->input->post('value');
+      $email = $this->input->post('name');
+      $scripts = '';
+      if( $val ){
+        $scripts = '<script src="' . $this->config->item('base_url') . 'uploads/clickfunnels/'  . base64_encode($email) . '.js"></script>';
+        $fn = $this->config->item('app_path') . 'asset/js/clickfunnels.js';
+        $newfn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+
+        if(copy($fn,$newfn))
+          echo 'The file was copied successfully';
+        else
+          echo 'An error occurred during copying the file';
+      }
+      else
+      {
+        $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+        if(unlink($fn)){
+        echo sprintf("The file %s deleted successfully",$fn);
+        }else{
+        echo sprintf("An error occurred deleting the file %s",$fn);
+        }
+      }
+      $data = array(
+        $key => $val, 'scripts' => $scripts
+      );
+
+      $this->Clickfunnels_model->update( $this->input->post('pk'), $data );
+    }
+  }
+
+  public function email_check($str){
+      $query =  $this->db->get_where('clickfunnels', array('email'=>$str));
+
+      if (count($query->result())>0)
+      {
+          $this->form_validation->set_message('email_check', 'The %s already exists');
+          return FALSE;
+      }
+      else
+      {
+          return TRUE;
+      }
+  }
 
   function shopifytheme(){
       // Check the login
