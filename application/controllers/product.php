@@ -218,32 +218,32 @@ class Product extends MY_Controller {
       exit;
   }
 
-  // function createClickfunnels(){
-  //    if($this->session->userdata('role') == 'admin'){
-  //     $this->form_validation->set_rules('email', 'Email', 'callback_email_check');
-  //     //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
-  //
-  //     if ($this->form_validation->run() == FALSE){
-  //         echo validation_errors('<div class="alert alert-danger">', '</div>');
-  //         exit;
-  //     }
-  //     else{
-  //           if($this->Clickfunnels_model->createClickfunnels()){
-  //               echo '<div class="alert alert-success">This Customer added successfully</div>';
-  //               //redirect('product/clickfunnels');
-  //               exit;
-  //           }
-  //           else{
-  //               echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
-  //               exit;
-  //           }
-  //         }
-  //    }
-  //    else{
-  //        echo '<div class="alert alert-danger">Invalid Email</div>';
-  //        exit;
-  //    }
-  // }
+  function createClickfunnels(){
+     if($this->session->userdata('role') == 'admin'){
+      $this->form_validation->set_rules('email', 'Email', 'callback_email_check');
+      //$this->form_validation->set_rules('password', 'Password', 'required|matches[cpassword]');
+
+      if ($this->form_validation->run() == FALSE){
+          echo validation_errors('<div class="alert alert-danger">', '</div>');
+          exit;
+      }
+      else{
+            if($this->Clickfunnels_model->createClickfunnels()){
+                echo '<div class="alert alert-success">This Customer added successfully</div>';
+                //redirect('product/clickfunnels');
+                exit;
+            }
+            else{
+                echo '<div class="alert alert-danger">Sorry ! something went wrong </div>';
+                exit;
+            }
+          }
+     }
+     else{
+         echo '<div class="alert alert-danger">Invalid Email</div>';
+         exit;
+     }
+  }
 
   function updateClickfunnels( $key ){
     if($this->session->userdata('role') == 'admin'){
