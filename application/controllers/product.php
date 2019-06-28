@@ -191,32 +191,32 @@ class Product extends MY_Controller {
       }
   }
 
-  function delClickfunnels(){
-      if($this->session->userdata('role') == 'admin'){
-          $id = $this->input->get_post('del_id');
-          $email = $this->input->get_post('del_email');
-
-          $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
-          if(unlink($fn)){
-            echo sprintf("The file %s deleted successfully",$fn);
-          }else{
-            echo sprintf("An error occurred deleting the file %s",$fn);
-          }
-
-          $returnDelete = $this->Clickfunnels_model->delete( $id );
-          if( $returnDelete === true ){
-              $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
-          }
-          else{
-              $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
-          }
-      }
-      else{
-          $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
-      }
-      redirect('product/clickfunnels');
-      exit;
-  }
+  // function delClickfunnels(){
+  //     if($this->session->userdata('role') == 'admin'){
+  //         $id = $this->input->get_post('del_id');
+  //         $email = $this->input->get_post('del_email');
+  //
+  //         $fn = $this->config->item('app_path') . 'uploads/clickfunnels/' . base64_encode($email) . '.js';
+  //         if(unlink($fn)){
+  //           echo sprintf("The file %s deleted successfully",$fn);
+  //         }else{
+  //           echo sprintf("An error occurred deleting the file %s",$fn);
+  //         }
+  //
+  //         $returnDelete = $this->Clickfunnels_model->delete( $id );
+  //         if( $returnDelete === true ){
+  //             $this->session->set_flashdata('falsh', '<p class="alert alert-success">One item deleted successfully</p>');
+  //         }
+  //         else{
+  //             $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! deleted unsuccessfully : ' . $returnDelete . '</p>');
+  //         }
+  //     }
+  //     else{
+  //         $this->session->set_flashdata('falsh', '<p class="alert alert-danger">Sorry! You have no rights to deltete</p>');
+  //     }
+  //     redirect('product/clickfunnels');
+  //     exit;
+  // }
 
   function createClickfunnels(){
      if($this->session->userdata('role') == 'admin'){
