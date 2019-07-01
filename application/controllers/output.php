@@ -68,33 +68,33 @@ class Output extends MY_Controller {
       $this->manage();
     }
 
-    // public function order_output($shop=''){
-    //
-    //     $shop = $this->_default_store;
-    //     $this->load->model( 'Order_model' );
-    //     $created_at = date('Y-m-d');
-    //
-    //     $arrCondition =  array(
-    //        'created_at' => $created_at
-    //     );
-    //     $this->Order_model->rewriteParam($shop);
-    //
-    //     $data['query'] =  $this->Order_model->getList( $arrCondition );
-    //     $result = $data['query']->result();
-    //
-    //     $this->Output_model->rewriteParam($this->_default_store);
-    //     if(isset($this->Output_model->getList()->result()[0]))
-    //         $data =  $this->Output_model->getList()->result()[0];
-    //
-    //     if(sizeof($result) > 0){
-    //         if(!($data->ftp_uri == ''))
-    //             $this->send_file_ftp($this->create_csv_file($result));
-    //         if(!($data->vendor_mail == ''))
-    //             $this->send_csv_mail($this->create_csv_file($result), "Please check the attachment", $data->vendor_mail);
-    //         //set exported_status = 1;
-    //         $this->Order_model->setExported( $result );
-    //     }
-    // }
+    public function order_output($shop=''){
+
+        $shop = $this->_default_store;
+        $this->load->model( 'Order_model' );
+        $created_at = date('Y-m-d');
+
+        $arrCondition =  array(
+           'created_at' => $created_at
+        );
+        $this->Order_model->rewriteParam($shop);
+
+        $data['query'] =  $this->Order_model->getList( $arrCondition );
+        $result = $data['query']->result();
+
+        $this->Output_model->rewriteParam($this->_default_store);
+        if(isset($this->Output_model->getList()->result()[0]))
+            $data =  $this->Output_model->getList()->result()[0];
+
+        if(sizeof($result) > 0){
+            if(!($data->ftp_uri == ''))
+                $this->send_file_ftp($this->create_csv_file($result));
+            if(!($data->vendor_mail == ''))
+                $this->send_csv_mail($this->create_csv_file($result), "Please check the attachment", $data->vendor_mail);
+            //set exported_status = 1;
+            $this->Order_model->setExported( $result );
+        }
+    }
 
     /*
         Create csv from database and send it as attachment
