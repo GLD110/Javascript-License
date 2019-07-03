@@ -47,26 +47,26 @@ class Output extends MY_Controller {
       $this->load->view('view_footer');
     }
 
-    public function save( )
-    {
-      // Check the login
-      $this->is_logged_in();
-
-      //Get Post data
-      $input = $this->input->post();
-
-      // Init the search value
-      $this->initSearchValue();
-
-        //var_dump($this->input->post()['in_shop']);exit;
-
-      // save and update the output settings
-      if($input['vendor_mail'] != '' || $input['ftp_uri'] != ''){
-          $arrList = $this->Output_model->save($input);
-      }
-
-      $this->manage();
-    }
+    // public function save( )
+    // {
+    //   // Check the login
+    //   $this->is_logged_in();
+    //
+    //   //Get Post data
+    //   $input = $this->input->post();
+    //
+    //   // Init the search value
+    //   $this->initSearchValue();
+    //
+    //     //var_dump($this->input->post()['in_shop']);exit;
+    //
+    //   // save and update the output settings
+    //   if($input['vendor_mail'] != '' || $input['ftp_uri'] != ''){
+    //       $arrList = $this->Output_model->save($input);
+    //   }
+    //
+    //   $this->manage();
+    // }
 
     public function order_output($shop=''){
 
