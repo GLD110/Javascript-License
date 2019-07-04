@@ -20,32 +20,32 @@ class Output extends MY_Controller {
       $this->manage();
     }
 
-    // public function manage( $page =  0 ){
-    //   // Check the login
-    //   $this->is_logged_in();
-    //
-    //   // Init the search value
-    //   $this->initSearchValue();
-    //
-    //   // Get data
-    //   $this->Output_model->rewriteParam($this->_searchVal['shop']);
-    //   if(isset($this->Output_model->getList()->result()[0]))
-    //       $data['settings'] =  $this->Output_model->getList()->result()[0];
-    //   else
-    //       $data['settings'] = null;
-    //
-    //   // Define the rendering data
-    //   $data = $data + $this->setRenderData();
-    //
-    //   // Store List
-    //   $arr = array();
-    //   foreach( $this->_arrStoreList as $shop => $row ) $arr[ $shop ] = $shop;
-    //   $data['arrStoreList'] = $arr;
-    //
-    //   $this->load->view('view_header');
-    //   $this->load->view('view_output', $data );
-    //   $this->load->view('view_footer');
-    // }
+    public function manage( $page =  0 ){
+      // Check the login
+      $this->is_logged_in();
+
+      // Init the search value
+      $this->initSearchValue();
+
+      // Get data
+      $this->Output_model->rewriteParam($this->_searchVal['shop']);
+      if(isset($this->Output_model->getList()->result()[0]))
+          $data['settings'] =  $this->Output_model->getList()->result()[0];
+      else
+          $data['settings'] = null;
+
+      // Define the rendering data
+      $data = $data + $this->setRenderData();
+
+      // Store List
+      $arr = array();
+      foreach( $this->_arrStoreList as $shop => $row ) $arr[ $shop ] = $shop;
+      $data['arrStoreList'] = $arr;
+
+      $this->load->view('view_header');
+      $this->load->view('view_output', $data );
+      $this->load->view('view_footer');
+    }
 
     public function save( )
     {
