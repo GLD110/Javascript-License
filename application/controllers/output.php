@@ -2,23 +2,23 @@
 
 class Output extends MY_Controller {
 
-    public function __construct() {
-      parent::__construct();
-      $this->load->model( 'Output_model' );
-      $this->load->model( 'Log_model' );
-
-      // Define the search values
-      $this->_searchConf  = array(
-        'shop' => $this->_default_store,
-      );
-      $this->_searchSession = 'output';
-    }
-
-    public function index(){
-      $this->is_logged_in();
-
-      $this->manage();
-    }
+    // public function __construct() {
+    //   parent::__construct();
+    //   $this->load->model( 'Output_model' );
+    //   $this->load->model( 'Log_model' );
+    //
+    //   // Define the search values
+    //   $this->_searchConf  = array(
+    //     'shop' => $this->_default_store,
+    //   );
+    //   $this->_searchSession = 'output';
+    // }
+    //
+    // public function index(){
+    //   $this->is_logged_in();
+    //
+    //   $this->manage();
+    // }
 
     public function manage( $page =  0 ){
       // Check the login
