@@ -2,26 +2,26 @@
 
 class Order extends MY_Controller {
 
-  public function __construct() {
-    parent::__construct();
-    $this->load->model( 'Order_model' );
-    $this->_default_store = $this->session->userdata('shop');
-
-    // Define the search values
-    $this->_searchConf  = array(
-      'product_name' => '',
-      'customer_name' => '',
-      'order_name' => '',
-      'shop' => $this->_default_store,
-      'collect' => '',
-      'page_size' => $this->config->item('PAGE_SIZE'),
-      'created_at' => '',
-      'sort_field' => 'created_at',
-      'sort_direction' => 'DESC',
-    );
-
-    $this->_searchSession = 'order_sels';
-  }
+  // public function __construct() {
+  //   parent::__construct();
+  //   $this->load->model( 'Order_model' );
+  //   $this->_default_store = $this->session->userdata('shop');
+  //
+  //   // Define the search values
+  //   $this->_searchConf  = array(
+  //     'product_name' => '',
+  //     'customer_name' => '',
+  //     'order_name' => '',
+  //     'shop' => $this->_default_store,
+  //     'collect' => '',
+  //     'page_size' => $this->config->item('PAGE_SIZE'),
+  //     'created_at' => '',
+  //     'sort_field' => 'created_at',
+  //     'sort_direction' => 'DESC',
+  //   );
+  //
+  //   $this->_searchSession = 'order_sels';
+  // }
 
   private function _checkDispatchCode( $code1, $code2 )
   {
