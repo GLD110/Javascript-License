@@ -26,41 +26,41 @@ class Product extends MY_Controller {
     $this->manage();
   }
 
-  // public function manage( $page =  0 ){
-  //   // Check the login
-  //   $this->is_logged_in();
-  //
-  //   // Init the search value
-  //   $this->initSearchValue();
-  //
-  //   // Get data
-  //   $this->Product_model->rewriteParam($this->_searchVal['shop']);
-  //   $arrCondition =  array(
-  //     'name' => $this->_searchVal['name'],
-  //     'sku' => $this->_searchVal['sku'],
-  //     'sort' => $this->_searchVal['sort_field'] . ' ' . $this->_searchVal['sort_direction'],
-  //     'page_number' => $page,
-  //     'page_size' => $this->_searchVal['page_size'],
-  //   );
-  //   $data['query'] =  $this->Product_model->getList( $arrCondition );
-  //   $data['total_count'] = $this->Product_model->getTotalCount();
-  //   $data['page'] = $page;
-  //
-  //   // Store List
-  //   $arr = array();
-  //   foreach( $this->_arrStoreList as $shop => $row ) $arr[ $shop ] = $shop;
-  //   $data['arrStoreList'] = $arr;
-  //
-  //   // Define the rendering data
-  //   $data = $data + $this->setRenderData();
-  //
-  //   // Load Pagenation
-  //   $this->load->library('pagination');
-  //
-  //   $this->load->view('view_header');
-  //   $this->load->view('view_product', $data );
-  //   $this->load->view('view_footer');
-  // }
+  public function manage( $page =  0 ){
+    // Check the login
+    $this->is_logged_in();
+
+    // Init the search value
+    $this->initSearchValue();
+
+    // Get data
+    $this->Product_model->rewriteParam($this->_searchVal['shop']);
+    $arrCondition =  array(
+      'name' => $this->_searchVal['name'],
+      'sku' => $this->_searchVal['sku'],
+      'sort' => $this->_searchVal['sort_field'] . ' ' . $this->_searchVal['sort_direction'],
+      'page_number' => $page,
+      'page_size' => $this->_searchVal['page_size'],
+    );
+    $data['query'] =  $this->Product_model->getList( $arrCondition );
+    $data['total_count'] = $this->Product_model->getTotalCount();
+    $data['page'] = $page;
+
+    // Store List
+    $arr = array();
+    foreach( $this->_arrStoreList as $shop => $row ) $arr[ $shop ] = $shop;
+    $data['arrStoreList'] = $arr;
+
+    // Define the rendering data
+    $data = $data + $this->setRenderData();
+
+    // Load Pagenation
+    $this->load->library('pagination');
+
+    $this->load->view('view_header');
+    $this->load->view('view_product', $data );
+    $this->load->view('view_footer');
+  }
 
   public function update( $type, $pk )
   {
