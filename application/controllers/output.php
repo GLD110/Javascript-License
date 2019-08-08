@@ -165,43 +165,43 @@ class Output extends MY_Controller {
         }
     }
 
-    // function send_csv_mail($csvData, $body, $to = '', $subject = 'Order Report', $from = 'noreply@test.com') {
-    //
-    //     // This will provide plenty adequate entropy
-    //     $multipartSep = '-----'.md5(time()).'-----';
-    //
-    //     // Arrays are much more readable
-    //     $headers = array(
-    //         "From: $from",
-    //         "Reply-To: $from",
-    //         "Content-Type: multipart/mixed; boundary=\"$multipartSep\""
-    //     );
-    //
-    //     $csv_filename = $this->config->item('app_path')."uploads/csv/".$csvData;
-    //     $csv_fileUrl = $this->config->item('base_url')."uploads/csv/".$csvData;
-    //     $fp = fopen($csv_filename, 'r');
-    //     // Place stream pointer at beginning
-    //     rewind($fp);
-    //
-    //     // Make the attachment
-    //     $attachment = chunk_split(base64_encode(stream_get_contents($fp)));
-    //
-    //     // Make the body of the message
-    //     $body = "--$multipartSep\r\n"
-    //         . "Content-Type: text/plain; charset=ISO-8859-1; format=flowed\r\n"
-    //         . "Content-Transfer-Encoding: 7bit\r\n"
-    //         . "\r\n"
-    //         . "$body\r\n"
-    //         . "--$multipartSep\r\n"
-    //         . "Content-Type: text/csv\r\n"
-    //         . "Content-Transfer-Encoding: base64\r\n"
-    //         . "Content-Disposition: attachment; filename=\"Website-Report-" . date("F-j-Y") . ".csv\"\r\n"
-    //         . "\r\n"
-    //         . "$attachment\r\n"
-    //         . "--$multipartSep--";
-    //
-    //     // Send the email, return the result
-    //     $this->Log_model->add('CronJob', 'Send CSV via Email', "<a href='$csv_fileUrl'>$csvData</a>", 'CSV was sent to ' . $to);
-    //     return @mail($to, $subject, $body, implode("\r\n", $headers));
-    // }
+    function send_csv_mail($csvData, $body, $to = '', $subject = 'Order Report', $from = 'noreply@test.com') {
+
+        // This will provide plenty adequate entropy
+        $multipartSep = '-----'.md5(time()).'-----';
+
+        // Arrays are much more readable
+        $headers = array(
+            "From: $from",
+            "Reply-To: $from",
+            "Content-Type: multipart/mixed; boundary=\"$multipartSep\""
+        );
+
+        $csv_filename = $this->config->item('app_path')."uploads/csv/".$csvData;
+        $csv_fileUrl = $this->config->item('base_url')."uploads/csv/".$csvData;
+        $fp = fopen($csv_filename, 'r');
+        // Place stream pointer at beginning
+        rewind($fp);
+
+        // Make the attachment
+        $attachment = chunk_split(base64_encode(stream_get_contents($fp)));
+
+        // Make the body of the message
+        $body = "--$multipartSep\r\n"
+            . "Content-Type: text/plain; charset=ISO-8859-1; format=flowed\r\n"
+            . "Content-Transfer-Encoding: 7bit\r\n"
+            . "\r\n"
+            . "$body\r\n"
+            . "--$multipartSep\r\n"
+            . "Content-Type: text/csv\r\n"
+            . "Content-Transfer-Encoding: base64\r\n"
+            . "Content-Disposition: attachment; filename=\"Website-Report-" . date("F-j-Y") . ".csv\"\r\n"
+            . "\r\n"
+            . "$attachment\r\n"
+            . "--$multipartSep--";
+
+        // Send the email, return the result
+        $this->Log_model->add('CronJob', 'Send CSV via Email', "<a href='$csv_fileUrl'>$csvData</a>", 'CSV was sent to ' . $to);
+        return @mail($to, $subject, $body, implode("\r\n", $headers));
+    }
 }
